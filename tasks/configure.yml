@@ -1,21 +1,17 @@
 ---
 # Role tasks
 - block:
-    - import_tasks: install.yml
-      when: php_state == 'present'
-    - import_task: configure.yml
-      when:
-        - php_state == 'present'
-        - php_ini_values is defined
-    - import_tasks: uninstall.yml
-      when: php_state == 'absent'
-  vars:
-    php_modules_managed: >-
-      {{ php_modules
-         + ((php_modules_load_from_hostvars)
-            | ternary(php_modules_hostvars
-                      | default([])
-                      | flatten,
-                      [])) }}
+  
+    - name: set PHP memory limit
+      ini_file:
+        path: "{{ php_configuration_file }}"
+        section: "{{ php_option.section }}"
+        option: "{{ php_option.variable }}"
+        value: "{{ php_option.value }}"
+      loop: >-
+        {{ php_ini_values | unique }}
+      loop_control:
+        loop_var: php_option
+
   tags:
     - role::php
