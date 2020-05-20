@@ -1,0 +1,59 @@
+---
+# Role tasks
+- block:
+    - name: Install apache if required
+      include_role:
+        name: amtega.apache
+      vars:
+        apache_aditional_modules: "{{ php_apache_required_modules }}"
+      when: php_install_apache | bool
+
+    - name: Install remi php repositories rpm
+      yum:
+        name: "{{ php_remi_repository }}"
+        state: present
+        disable_gpg_check: yes
+
+    - name: Install base php rpms
+      yum:
+        name: "{{ php_base_rpm }}"
+        state: present
+        enablerepo: "remi-php{{ php_version }}"
+        disable_gpg_check: yes
+      loop: "{{ php_base_packages }}"
+      loop_control:
+        loop_var:  php_base_rpm
+      notify: restart httpd
+
+    - name: Remove required php modules
+      yum:
+        name: "{{ php_module_remove }}"
+        state: absent
+        disable_gpg_check: yes
+      loop: >-
+        {{ php_modules_managed
+            | selectattr('state', 'equalto', 'absent')
+            | map(attribute='name')
+            | difference(php_base_packages)
+            | list | unique }}
+      loop_control:
+        loop_var:  php_module_remove
+      notify: restart httpd
+
+    - name: Install required php modules
+      yum:
+        name: "{{ php_module_install }}"
+        state: present
+        enablerepo: "remi-php{{ php_version }}"
+        disable_gpg_check: yes
+      loop: >-
+        {{ php_modules_managed
+            | selectattr('state', 'equalto', 'present')
+            | map(attribute='name')
+            | list | unique }}
+      loop_control:
+        loop_var:  php_module_install
+      notify: restart httpd
+
+  tags:
+    - role::php

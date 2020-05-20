@@ -1,2 +1,53 @@
 ---
 # Role default lower priority variables
+php_state: present
+
+php_base_packages:
+  - php
+  - php-common
+
+php_modules:
+  - name: php-mysqlnd
+    state: present
+  - name: php-gd
+    state: present
+  - name: php-mbstring
+    state: present
+  - name: php-intl
+    state: present
+  - name: php-pecl-apcu
+    state: present
+  - name: php-pecl-redis
+    state: present
+  - name: php-opcache
+    state: present
+  - name: php-imagick
+    state: present
+
+php_modules_load_from_hostvars: yes
+
+php_version: 74
+
+php_install_apache: yes
+php_apache_required_modules: []
+
+# You can define a list of dicts with the variables of the php.ini file that you
+# need to adjust. You must indicate name, value and ini section for each variable.
+# Example:
+#
+# php_ini_values:
+#   - variable: max_execution_time
+#     value: 60
+#     section: PHP
+#   - variable: memory_limit
+#     value: 256M
+#     section: PHP
+#   - variable: post_max_size
+#     value: 22M
+#     section: PHP
+#   - variable: upload_max_filesize
+#     value: 20M
+#     section: PHP
+#   - variable: date.timezone
+#     value: Europe/Madrid
+#     section: Date
