@@ -1,11 +1,29 @@
 ---
 # Role default lower priority variables
+
+# Indicate if php need to bo intalled or uninstalled. Values are 'present' or 'absent'
 php_state: present
 
+# Indicate witch php version you want install.
+# Values 70, 71, 72, 73 and 74 are permited
+php_version: 74
+
+#
+# Indicate with rpm are required in a minimal installation.
+# This rpms allways are present.If you want remove it, you must unistall all php.
+#
 php_base_packages:
   - php
   - php-common
 
+#
+# Indicate witch php modules are managed by this rol. Is a array of dicts.
+# Every element has this format:
+#  {
+#   name: <Name of php module rpm>. Mandatory
+#   state: <present or absent>. Mandatory
+#  }
+#
 php_modules:
   - name: php-mysqlnd
     state: present
@@ -17,19 +35,17 @@ php_modules:
     state: present
   - name: php-pecl-apcu
     state: present
-  - name: php-pecl-redis
-    state: present
   - name: php-opcache
     state: present
   - name: php-imagick
     state: present
 
+# Indicate if the modules variable must be loaded also from host
+# variables. Any host variable that begins with "php_modules_*" and contains
+# the necessary attributes will be loaded as an item to manage by the role. The
+# variables must follow the structure detailed before for each one.
+
 php_modules_load_from_hostvars: yes
-
-php_version: 74
-
-php_install_apache: yes
-php_apache_required_modules: []
 
 # You can define a list of dicts with the variables of the php.ini file that you
 # need to adjust. You must indicate name, value and ini section for each variable.

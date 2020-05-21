@@ -5,7 +5,7 @@
     - import_tasks: install.yml
       when: php_state == 'present'
 
-    - import_task: configure.yml
+    - import_tasks: configure.yml
       when:
         - php_state == 'present'
         - php_ini_values is defined

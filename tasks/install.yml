@@ -1,12 +1,6 @@
 ---
 # Role tasks
 - block:
-    - name: Install apache if required
-      include_role:
-        name: amtega.apache
-      vars:
-        apache_aditional_modules: "{{ php_apache_required_modules }}"
-      when: php_install_apache | bool
 
     - name: Install remi php repositories rpm
       yum:
