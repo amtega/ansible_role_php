@@ -98,6 +98,16 @@
           - php_read_modules_installed.stdout is search("intl")
           - php_read_modules_installed.stdout is search("redis")
 
+    - name: Register php version
+      command: "/usr/bin/php -v"
+      changed_when: false
+      register: php_read_version_installed
+
+    - name: Ensure php version is correct
+      assert:
+        that:
+          - php_read_version_installed.stdout is search("PHP 7.4")
+
   tags:
     - idempotence
 
