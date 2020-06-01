@@ -1,29 +1,22 @@
 ---
 # Role default lower priority variables
 
-# Indicate if php need to bo intalled or uninstalled. Values are 'present' or 'absent'
+# Indicate if php must be'present' or 'absent'
+
 php_state: present
 
-# Indicate witch php version you want install.
-# Values 70, 71, 72, 73 and 74 are permited
-php_version: 74
+# Indicate which php version you want install.
+# Values 7.x are valid
 
-#
-# Indicate with rpm are required in a minimal installation.
-# This rpms allways are present.If you want remove it, you must unistall all php.
-#
-php_base_packages:
-  - php
-  - php-common
+php_version: 7.4
 
-#
-# Indicate witch php modules are managed by this rol. Is a array of dicts.
-# Every element has this format:
-#  {
-#   name: <Name of php module rpm>. Mandatory
-#   state: <present or absent>. Mandatory
-#  }
-#
+# List of dicts with the php modules to manage. Each dict has the following
+# structure:
+# {
+#   name: <modoe>   # Name of the php module (mandatory)
+#   state: <state>  # State of the module. Can be 'present' or 'absent'
+# }
+
 php_modules:
   - name: php-mysqlnd
     state: present
@@ -47,8 +40,14 @@ php_modules:
 
 php_modules_load_from_hostvars: yes
 
-# You can define a list of dicts with the variables of the php.ini file that you
-# need to adjust. You must indicate name, value and ini section for each variable.
+# List of dicts with the variables of the php.ini file to setup. Each dict has
+# the following structure:
+# {
+#   variable: <name>          # Name of the variable to setup
+#   value: <value>            # Value of the variable
+#   section: <name>           # Name of the section that holds the variableº
+# }
+#
 # Example:
 #
 # php_ini_values:
@@ -67,3 +66,9 @@ php_modules_load_from_hostvars: yes
 #   - variable: date.timezone
 #     value: Europe/Madrid
 #     section: Date
+
+php_ini_values: []
+
+# Enable or disable php check during php packages install
+
+php_disable_gpg_check: yes

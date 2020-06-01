@@ -1,10 +1,6 @@
-# Ansible <!-- this role name --> role
+# Ansible php role
 
-This is an [Ansible](http://www.ansible.com) role which manage php 7.x installation in centos/RHEL 7.
-
-## Requirements
-
-[Ansible 2.9+](http://docs.ansible.com/ansible/latest/intro_installation.html)
+This is an [Ansible](http://www.ansible.com) role to setup php 7.x.
 
 ## Role Variables
 
@@ -20,20 +16,16 @@ This is an example playbook:
 - hosts: all
   roles:
     - role: amtega.php
-
 ```
 
 ## Testing
 
-Tests are based on docker containers. You can setup docker engine quickly using the playbook `files/setup.yml` available in the role [amtega.docker_engine](https://galaxy.ansible.com/amtega/docker_engine).
-
-For testing purposes, this role performs a simple apache installation, witch required amtega.apache role.
-
-Once you have docker, you can run the tests with the following commands:
+Tests are based on [molecule with role docker containers](https://molecule.readthedocs.io/en/latest/installation.html).
 
 ```shell
-$ cd amtega.php/tests
-$ ansible-playbook main.yml
+cd amtega.php
+
+molecule test --all
 ```
 
 ## License
@@ -49,3 +41,4 @@ This role is distributed in the hope that it will be useful, but WITHOUT ANY WAR
 ## Author Information
 
 - José Enrique Mourón Regueira
+- Juan Antonio Valiño García

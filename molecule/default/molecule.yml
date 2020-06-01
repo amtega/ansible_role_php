@@ -1,0 +1,49 @@
+---
+
+dependency:
+  name: galaxy
+driver:
+  name: docker
+lint:
+  name: yamllint
+platforms:
+  - name: centos7
+    image: centos:7
+    command: /sbin/init
+    tmpfs:
+      - /run
+      - /tmp
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    groups:
+      - molecule_hosts
+provisioner:
+  name: ansible
+  inventory:
+    group_vars:
+      molecule_hosts:
+        php_ini_values:
+          - variable: max_execution_time
+            value: 60
+            section: PHP
+          - variable: memory_limit
+            value: 256M
+            section: PHP
+          - variable: post_max_size
+            value: 22M
+            section: PHP
+          - variable: upload_max_filesize
+            value: 20M
+            section: PHP
+          - variable: date.timezone
+            value: Europe/Madrid
+            section: Date
+        php_modules_testhostvars:
+          - name: php-pecl-redis
+            state: present
+  lint:
+    name: ansible-lint
+verifier:
+  name: testinfra
+  lint:
+    name: flake8
