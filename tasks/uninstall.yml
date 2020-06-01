@@ -1,0 +1,34 @@
+---
+# Role tasks
+- block:
+  - name: Remove remi php repositories rpm
+    yum:
+      name: "{{ php_remi_repository }}"
+      state: absent
+      disable_gpg_check: yes
+
+  - name: Remove all php modules
+    yum:
+      name: "{{ php_module_remove }}"
+      state: absent
+      disable_gpg_check: yes
+    loop: >-
+      {{ php_modules_managed
+          | map(attribute='name')
+          | list | unique }}
+    loop_control:
+      loop_var:  php_module_remove
+    notify: restart httpd
+
+  - name: Remove base php rpms
+    yum:
+      name: "{{ php_base_rpm }}"
+      state: absent
+      disable_gpg_check: yes
+    loop: "{{ php_base_packages }}"
+    loop_control:
+      loop_var:  php_base_rpm
+    notify: restart httpd
+
+  tags:
+    - role::php
