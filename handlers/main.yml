@@ -1,8 +1,11 @@
 ---
 # Role handlers
+
 - name: PHP restart httpd
   service:
     name: httpd
     state: restarted
     enabled: yes
-  listen: restart httpd
+    listen:
+      - apache restart
+      - httpd restart

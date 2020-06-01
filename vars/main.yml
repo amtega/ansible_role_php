@@ -1,4 +1,17 @@
 ---
 # Role variables
-php_configuration_file: /etc/php.ini
+
+# Role paths
+
+php_configuration_path: /etc/php.ini
+
+# REMI respository package
+
 php_remi_repository: http://rpms.remirepo.net/enterprise/remi-release-7.rpm
+
+# Indicate with packages are required in a minimal installation. This packages
+# allways are present. If you want remove it, you must unistall all php
+
+php_base_packages:
+  - php
+  - php-common

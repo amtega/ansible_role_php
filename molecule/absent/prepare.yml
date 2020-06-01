@@ -1,0 +1,22 @@
+---
+
+- name: Prepare
+  hosts: molecule_hosts
+  gather_facts: no
+  roles:
+    - role: amtega.apache
+      vars:
+        apache_aditional_modules: []
+  tasks:
+    - name: Create a index.php with phpinfo
+      copy:
+        dest: "/var/www/html/index.php"
+        content: |
+          <?php
+            phpinfo();
+          ?>
+
+    - name: Check that apache is listening
+      wait_for:
+        port: 80
+        timeout: 10

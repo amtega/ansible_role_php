@@ -1,18 +1,17 @@
 ---
 # Role tasks
-- block:
 
-    - import_tasks: install.yml
+- block:
+    - include_tasks: install.yml
       when: php_state == 'present'
 
-    - import_tasks: configure.yml
+    - include_tasks: configure.yml
       when:
         - php_state == 'present'
         - php_ini_values is defined
 
-    - import_tasks: uninstall.yml
+    - include_tasks: uninstall.yml
       when: php_state == 'absent'
-
   vars:
     php_modules_managed: >-
       {{ php_modules
