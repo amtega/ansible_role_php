@@ -4,11 +4,32 @@ dependency:
   name: galaxy
 driver:
   name: docker
-lint:
-  name: yamllint
+lint: |
+  set -e
+  export ANSIBLE_ACTION_PLUGINS=$PWD/action_plugins
+  export ANSIBLE_BECOME_PLUGINS=$PWD/become_plugins
+  export ANSIBLE_CACHE_PLUGINS=$PWD/cache_plugins
+  export ANSIBLE_CALLBACK_PLUGINS=$PWD/callback_plugins
+  export ANSIBLE_CLICONF_PLUGINS=$PWD/cliconf_plugins
+  export ANSIBLE_CONNECTION_PLUGINS=$PWD/connection_plugins
+  export ANSIBLE_DOC_FRAGMENT_PLUGINS=$PWD/doc_fragment_plugins
+  export ANSIBLE_FILTER_PLUGINS=$PWD/filter_plugins
+  export ANSIBLE_HTTPAPI_PLUGINS=$PWD/httpapi_plugins
+  export ANSIBLE_INVENTORY_PLUGINS=$PWD/inventory_plugins
+  export ANSIBLE_LIBRARY=$PWD/library
+  export ANSIBLE_LOOKUP_PLUGINS=$PWD/lookup_plugins
+  export ANSIBLE_NETCONF_PLUGINS=$PWD/netconf_plugins
+  export ANSIBLE_STRATEGY_PLUGINS=$PWD/strategy_plugins
+  export ANSIBLE_TERMINAL_PLUGINS=$PWD/terminal_plugins
+  export ANSIBLE_TEST_PLUGINS=$PWD/test_plugins
+  export ANSIBLE_VARS_PLUGINS=$PWD/vars_plugins
+  yamllint .
+  ansible-lint
+  flake8
 platforms:
-  - name: centos7
+  - name: "centos7-${INSTANCE_UUID:-1}"
     image: centos:7
+    dockerfile: ../resources/Dockerfile.j2
     command: /sbin/init
     tmpfs:
       - /run
@@ -19,31 +40,31 @@ platforms:
       - molecule_hosts
 provisioner:
   name: ansible
+  playbooks:
+    prepare: ../resources/prepare.yml
+    converge: ../resources/converge.yml
   inventory:
-    group_vars:
+    hosts:
       molecule_hosts:
-        php_ini_values:
-          - variable: max_execution_time
-            value: 60
-            section: PHP
-          - variable: memory_limit
-            value: 256M
-            section: PHP
-          - variable: post_max_size
-            value: 22M
-            section: PHP
-          - variable: upload_max_filesize
-            value: 20M
-            section: PHP
-          - variable: date.timezone
-            value: Europe/Madrid
-            section: Date
-        php_modules_testhostvars:
-          - name: php-pecl-redis
-            state: present
-  lint:
-    name: ansible-lint
+        vars:
+          php_ini_values:
+            - variable: max_execution_time
+              value: 60
+              section: PHP
+            - variable: memory_limit
+              value: 256M
+              section: PHP
+            - variable: post_max_size
+              value: 22M
+              section: PHP
+            - variable: upload_max_filesize
+              value: 20M
+              section: PHP
+            - variable: date.timezone
+              value: Europe/Madrid
+              section: Date
+          php_modules_testhostvars:
+            - name: php-pecl-redis
+              state: present
 verifier:
-  name: testinfra
-  lint:
-    name: flake8
+  name: ansible
