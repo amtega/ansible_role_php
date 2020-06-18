@@ -24,7 +24,7 @@ lint: |
   export ANSIBLE_TEST_PLUGINS=$PWD/test_plugins
   export ANSIBLE_VARS_PLUGINS=$PWD/vars_plugins
   yamllint .
-  ansible-lint
+  ansible-lint .
   flake8
 platforms:
   - name: "centos7-${INSTANCE_UUID:-1}"
@@ -48,19 +48,26 @@ provisioner:
       molecule_hosts:
         vars:
           php_ini_values:
+            - variable: short_open_tag
+              state: absent
             - variable: max_execution_time
+              state: present
               value: 60
               section: PHP
             - variable: memory_limit
+              state: present
               value: 256M
               section: PHP
             - variable: post_max_size
+              state: present
               value: 22M
               section: PHP
             - variable: upload_max_filesize
+              state: present
               value: 20M
               section: PHP
             - variable: date.timezone
+              state: present
               value: Europe/Madrid
               section: Date
           php_modules_testhostvars:

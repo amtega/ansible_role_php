@@ -1,17 +1,30 @@
 ---
 # Role configure tasks
-
 - block:
-    - name: Setup php variable
+    - name: set PHP ini options
       ini_file:
-        path: "{{ php_configuration_path }}"
+        path: "{{ php_configuration_file }}"
         section: "{{ php_option.section }}"
         option: "{{ php_option.variable }}"
         value: "{{ php_option.value }}"
       loop: >-
-        {{ php_ini_values | unique }}
+        {{ php_ini_values | selectattr('state', 'equalto', 'present')
+          | list | unique | default([]) }}
       loop_control:
         loop_var: php_option
         label: "{{ php_option.variable }}"
+
+    - name: unset PHP ini options
+      lineinfile:
+        path: "{{ php_configuration_file }}"
+        regexp: '^{{ php_option.variable }} ='
+        state: absent
+      loop: >-
+        {{ php_ini_values | selectattr('state', 'equalto', 'absent')
+          | list | unique | default([]) }}
+      loop_control:
+        loop_var: php_option
+        label: "{{ php_option.variable }}"
+
   tags:
     - role::php

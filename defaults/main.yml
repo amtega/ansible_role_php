@@ -40,30 +40,41 @@ php_modules:
 
 php_modules_load_from_hostvars: yes
 
+
+
 # List of dicts with the variables of the php.ini file to setup. Each dict has
 # the following structure:
 # {
 #   variable: <name>          # Name of the variable to setup
-#   value: <value>            # Value of the variable
-#   section: <name>           # Name of the section that holds the variableº
+#   state: <present | absent>
+#   value: <value>            # Value of the variable. Only with state present.
+#   section: <name>           # Name of the section that holds the variable.
+#                             # Only with state present.
 # }
 #
 # Example:
 #
 # php_ini_values:
+#   - variable: short_open_tag
+#     state: absent
 #   - variable: max_execution_time
+#     state: present
 #     value: 60
 #     section: PHP
 #   - variable: memory_limit
+#     state: present
 #     value: 256M
 #     section: PHP
 #   - variable: post_max_size
+#     state: present
 #     value: 22M
 #     section: PHP
 #   - variable: upload_max_filesize
+#     state: present
 #     value: 20M
 #     section: PHP
 #   - variable: date.timezone
+#     state: present
 #     value: Europe/Madrid
 #     section: Date
 
