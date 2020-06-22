@@ -18,6 +18,9 @@
           - check_phpinfo_result.content
             is search('<tr><td class="e">upload_max_filesize</td>'
                       + '<td class="v">20M</td><td class="v">20M</td></tr>')
+          - check_phpinfo_result.content
+            is search('<tr><td class="e">short_open_tag</td>'
+                      + '<td class="v">On</td><td class="v">On</td></tr>')
 
     - name: Gather php registered modules
       command: "/usr/bin/php -m"
