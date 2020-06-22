@@ -1,5 +1,6 @@
 ---
 # Role configure tasks
+
 - block:
     - name: Set PHP config variables
       ini_file:
