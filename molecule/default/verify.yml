@@ -4,8 +4,6 @@
   hosts: molecule_hosts
   gather_facts: no
   tasks:
-    - meta: flush_handlers
-
     - name: Get phpinfo page
       uri:
         url: "http://localhost/index.php"

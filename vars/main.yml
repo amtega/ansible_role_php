@@ -3,7 +3,7 @@
 
 # Role paths
 
-php_configuration_path: /etc/php.ini
+php_configuration_file_path: /etc/php.ini
 
 # REMI respository package
 
