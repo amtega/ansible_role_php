@@ -1,0 +1,11 @@
+---
+
+- name: Prepare
+  hosts: molecule_hosts
+  gather_facts: no
+  roles:
+    - role: amtega.apache
+      vars:
+        apache_aditional_modules: []
+  tasks:
+    - include_tasks: ../resources/prepare_tasks.yml

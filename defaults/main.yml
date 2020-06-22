@@ -14,7 +14,7 @@ php_version: 7.4
 # structure:
 # {
 #   name: <modoe>   # Name of the php module (mandatory)
-#   state: <state>  # State of the module. Can be 'present' or 'absent'
+#   state: <state>  # State of the module. Can be present or absent
 # }
 
 php_modules:
@@ -40,13 +40,11 @@ php_modules:
 
 php_modules_load_from_hostvars: yes
 
-
-
 # List of dicts with the variables of the php.ini file to setup. Each dict has
 # the following structure:
 # {
 #   variable: <name>          # Name of the variable to setup
-#   state: <present | absent>
+#   state: <state>            # Can be present or absent
 #   value: <value>            # Value of the variable. Only with state present.
 #   section: <name>           # Name of the section that holds the variable.
 #                             # Only with state present.

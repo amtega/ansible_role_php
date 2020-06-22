@@ -1,7 +1,7 @@
 ---
 # Role handlers
 
-- name: PHP restart httpd
+- name: Php restart httpd
   service:
     name: httpd
     state: restarted
