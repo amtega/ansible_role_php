@@ -5,6 +5,10 @@
 
 php_state: present
 
+# Indicate if you want update php installed version
+
+php_force_update: no
+
 # Indicate which php version you want install.
 # Values 7.x are valid
 

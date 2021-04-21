@@ -2,6 +2,12 @@
 
 dependency:
   name: galaxy
+  enabled: yes
+  options:
+    ignore-certs: yes
+    ignore-errors: yes
+    role-file: requirements.yml
+    requirements-file: requirements.yml
 driver:
   name: docker
 lint: |
@@ -23,6 +29,7 @@ lint: |
   export ANSIBLE_TERMINAL_PLUGINS=$PWD/terminal_plugins
   export ANSIBLE_TEST_PLUGINS=$PWD/test_plugins
   export ANSIBLE_VARS_PLUGINS=$PWD/vars_plugins
+  export ANSIBLE_ROLES_PATH=$HOME/srv/ansible/roles
   yamllint .
   ansible-lint
   flake8
@@ -40,6 +47,8 @@ platforms:
       - molecule_hosts
 provisioner:
   name: ansible
+  env:
+    ANSIBLE_ROLES_PATH: ~/srv/ansible/roles
   playbooks:
     converge: ../resources/converge.yml
   inventory:

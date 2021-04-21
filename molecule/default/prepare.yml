@@ -8,4 +8,15 @@
       vars:
         apache_aditional_modules: []
   tasks:
-    - include_tasks: ../resources/prepare_tasks.yml
+    - name: Create a index.php with phpinfo
+      copy:
+        dest: "/var/www/html/index.php"
+        content: |
+          <?php
+            phpinfo();
+          ?>
+
+    - name: Check that apache is listening
+      wait_for:
+        port: 80
+        timeout: 10
