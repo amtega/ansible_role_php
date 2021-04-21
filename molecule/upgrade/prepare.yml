@@ -6,7 +6,11 @@
   roles:
     - role: amtega.apache
       vars:
-        apache_aditional_modules: []
+        apache_modules: []
+
+    - role: amtega.php
+      vars:
+        php_version: 7.3
   tasks:
     - name: Create a index.php with phpinfo
       copy:
