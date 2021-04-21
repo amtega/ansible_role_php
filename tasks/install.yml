@@ -12,7 +12,7 @@
       yum:
         name: "{{ php_base_rpm }}"
         state: >-
-          {{ (php_force_update) | ternary("present","latest") }}
+          {{ (php_force_update | bool) | ternary("latest", "present") }}
         enablerepo: "remi-php{{ php_version | regex_replace('\\.', '') }}"
         disable_gpg_check: "{{ php_disable_gpg_check | bool }}"
       loop: "{{ php_base_packages }}"
@@ -40,7 +40,7 @@
       yum:
         name: "{{ php_module_install }}"
         state: >-
-          {{ (php_force_update) | ternary("present","latest") }}
+          {{ (php_force_update | bool) | ternary("latest", "present") }}
         enablerepo: "remi-php{{ php_version | regex_replace('\\.', '') }}"
         disable_gpg_check: "{{ php_disable_gpg_check | bool }}"
       loop: >-
