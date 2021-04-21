@@ -8,6 +8,7 @@
         section: "{{ php_option.section }}"
         option: "{{ php_option.variable }}"
         value: "{{ php_option.value }}"
+        mode: 0644
       loop: >-
         {{ php_ini_values
            | selectattr('state', 'equalto', 'present')

@@ -3,6 +3,7 @@
 
 galaxy_info:
   role_name: php
+  namespace: amtega
   author: José Enrique Mourón Regueira / Juan Antonio Valiño García
   description: Role to setup PHP 7.x
   company: AMTEGA - Xunta de Galicia

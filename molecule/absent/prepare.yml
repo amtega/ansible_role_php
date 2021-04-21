@@ -10,4 +10,16 @@
 
     - role: amtega.php
   tasks:
-    - include_tasks: ../resources/prepare_tasks.yml
+    - name: Create a index.php with phpinfo
+      copy:
+        dest: "/var/www/html/index.php"
+        content: |
+          <?php
+            phpinfo();
+          ?>
+        mode: 0644
+
+    - name: Check that apache is listening
+      wait_for:
+        port: 80
+        timeout: 10
