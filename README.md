@@ -1,6 +1,7 @@
 # Ansible php role
 
 This is an [Ansible](http://www.ansible.com) role to setup php 7.x.
+This role also permit upgrade a php version installed by itself.
 
 ## Role Variables
 

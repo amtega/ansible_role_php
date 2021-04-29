@@ -1,5 +1,5 @@
 ---
-
+# Exclude meta dir and force scan only this role, not dependencies 
 exclude_paths:
   - meta
-  - molecule/resources/prepare.yml
+  - ../
