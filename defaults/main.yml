@@ -21,21 +21,7 @@ php_version: 7.4
 #   state: <state>  # State of the module. Can be present or absent
 # }
 
-php_modules:
-  - name: php-mysqlnd
-    state: present
-  - name: php-gd
-    state: present
-  - name: php-mbstring
-    state: present
-  - name: php-intl
-    state: present
-  - name: php-pecl-apcu
-    state: present
-  - name: php-opcache
-    state: present
-  - name: php-imagick
-    state: present
+php_modules: []
 
 # Indicate if the modules variable must be loaded also from host
 # variables. Any host variable that begins with "php_modules_*" and contains
