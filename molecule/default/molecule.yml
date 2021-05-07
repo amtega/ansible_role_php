@@ -64,5 +64,19 @@ provisioner:
           php_modules_testhostvars:
             - name: php-pecl-redis
               state: present
+            - name: php-mysqlnd
+              state: present
+            - name: php-gd
+              state: present
+            - name: php-mbstring
+              state: present
+            - name: php-intl
+              state: present
+            - name: php-pecl-apcu
+              state: present
+            - name: php-opcache
+              state: present
+            - name: php-imagick
+              state: present
 verifier:
   name: ansible
