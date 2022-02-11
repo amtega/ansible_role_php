@@ -1,0 +1,15 @@
+---
+
+- name: Verify
+  hosts: molecule_hosts
+  gather_facts: no
+  tasks:
+    - name: Gather php version
+      command: "/usr/bin/php -v"
+      changed_when: No
+      register: php_get_version_result
+
+    - name: Ensure php version is correct
+      assert:
+        that:
+          - php_get_version_result.stdout is search("PHP 7.4")

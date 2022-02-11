@@ -22,7 +22,7 @@
 
     - name: Gather php registered modules
       command: "/usr/bin/php -m"
-      changed_when: false
+      changed_when: No
       register: php_get_modules_result
 
     - name: Ensure php modules are registered
@@ -40,10 +40,10 @@
 
     - name: Gather php version
       command: "/usr/bin/php -v"
-      changed_when: false
+      changed_when: No
       register: php_get_version_result
 
     - name: Ensure php version is correct
       assert:
         that:
-          - php_get_version_result.stdout is search("PHP 7.4")
+          - php_get_version_result.stdout is search("PHP 8.1")
