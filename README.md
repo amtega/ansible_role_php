@@ -1,6 +1,6 @@
 # Ansible php role
 
-This is an [Ansible](http://www.ansible.com) role to setup php 7.x.
+This is an [Ansible](http://www.ansible.com) role to setup php .
 This role also permit upgrade a php version installed by itself.
 
 ## Role Variables
@@ -31,7 +31,7 @@ molecule test --all
 
 ## License
 
-Copyright (C) 2020 AMTEGA - Xunta de Galicia
+Copyright (C) 2022 AMTEGA - Xunta de Galicia
 
 This role is free software: you can redistribute it and/or modify it under the terms of:
 

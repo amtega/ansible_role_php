@@ -4,4 +4,5 @@
   hosts: molecule_hosts
   gather_facts: no
   roles:
-      - role: amtega.php
+
+    - role: amtega.php

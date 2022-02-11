@@ -15,8 +15,7 @@ driver:
 lint: "${MOLECULE_SCENARIO_DIRECTORY}/../resources/linters.sh"
 platforms:
   - name: "centos7-${INSTANCE_UUID:-1}"
-    image: centos:7
-    dockerfile: ../resources/Dockerfile.j2
+    image: quay.io/centos/centos:centos7
     command: /sbin/init
     tmpfs:
       - /run
@@ -38,6 +37,7 @@ provisioner:
     hosts:
       molecule_hosts:
         vars:
+          php_version: 8.1
           php_ini_values:
             - variable: short_open_tag
               state: absent
