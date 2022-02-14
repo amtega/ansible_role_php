@@ -4,7 +4,11 @@
 - block:
     - name: Remove remi php repository package
       yum:
-        name: "{{ php_remi_repository }}"
+        name: >-
+          {{ php_remi_repository
+             | urlsplit("path")
+             | basename
+             | regex_replace("\.rpm", "") }}
         state: absent
         disable_gpg_check: yes
 
