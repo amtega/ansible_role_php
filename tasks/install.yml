@@ -8,6 +8,32 @@
         state: present
         disable_gpg_check: yes
 
+    - when: ansible_facts.distribution_major_version is version("8", ">=")
+      block:
+        - name: Gather enabled dnf modules
+          command: /usr/bin/dnf module list --enabled -y
+          register: php_dnf_module_result
+          changed_when: no
+
+        - block:
+            - name: Reset dnf php module
+              command: /usr/bin/dnf module reset php -y
+              changed_when: yes
+
+            - name: Enable dnf remi php module
+              command: >-
+                /usr/bin/dnf module install php:remi-{{ php_version }} -y
+              register: php_dnf_module_install_result
+              changed_when: >-
+                php_dnf_module_install_result.stdout is search("Installing")
+          when: >-
+            php_dnf_module_result.stdout_lines
+            | select("search", "php.*remi-" ~ php_version ~ ".*\[e\]")
+            | list
+            | length == 0
+      environment:
+        LANGUAGE: en_US
+
     - name: Install base php packages
       yum:
         name: "{{ php_base_rpm }}"
@@ -52,7 +78,6 @@
       loop_control:
         loop_var: php_module_install
       notify: httpd restart
-
   environment: "{{ proxy_client_environment | default({}) }}"
   tags:
     - role::php
