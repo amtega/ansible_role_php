@@ -6,10 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [1.2.0] - 2022-02-14
-### Changed
-- Supported distros. Related to ansible/main#263
-
-## [1.1.0] - 2022-02-10
+## [1.1.0] - 2022-02-14
 ### Changed
 - Update tests to support php 8
+- Supported distros. Related to ansible/main#263
