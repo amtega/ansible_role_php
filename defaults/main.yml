@@ -10,7 +10,6 @@ php_state: present
 php_force_update: no
 
 # Indicate which php version you want install.
-# Values 7.x are valid
 
 php_version: 7.4
 

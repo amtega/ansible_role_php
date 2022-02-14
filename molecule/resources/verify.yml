@@ -36,7 +36,6 @@
           - php_get_modules_result.stdout is search("gd")
           - php_get_modules_result.stdout is search("mbstring")
           - php_get_modules_result.stdout is search("intl")
-          - php_get_modules_result.stdout is search("redis")
 
     - name: Gather php version
       command: "/usr/bin/php -v"
