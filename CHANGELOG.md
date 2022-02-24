@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.1] - 2022-02-24
+### Changed
+- Optimized install/uninstall time. Related to ansible/roles/amtega.php#4
+
 ## [1.1.0] - 2022-02-14
 ### Changed
 - Update tests to support php 8
