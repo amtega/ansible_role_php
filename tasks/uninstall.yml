@@ -14,26 +14,20 @@
 
     - name: Remove all php modules
       yum:
-        name: "{{ php_module_remove }}"
-        state: absent
-        disable_gpg_check: yes
-      loop: >-
-        {{ php_modules_managed
+        name: >-
+          {{ php_modules_managed
             | map(attribute='name')
             | list
             | unique }}
-      loop_control:
-        loop_var: php_module_remove
+        state: absent
+        disable_gpg_check: yes
       notify: httpd restart
 
     - name: Remove base php packages
       yum:
-        name: "{{ php_base_rpm }}"
+        name: "{{ php_base_packages }}"
         state: absent
         disable_gpg_check: yes
-      loop: "{{ php_base_packages }}"
-      loop_control:
-        loop_var: php_base_rpm
       notify: httpd restart
 
   environment: "{{ proxy_client_environment | default({}) }}"
