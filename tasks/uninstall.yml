@@ -29,7 +29,6 @@
         state: absent
         disable_gpg_check: yes
       notify: httpd restart
-
   environment: "{{ proxy_client_environment | default({}) }}"
   tags:
     - role::php
