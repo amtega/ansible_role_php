@@ -35,6 +35,5 @@
         loop_var: php_option
         label: "{{ php_option.variable }}"
       notify: httpd restart
-
   tags:
     - role::php
